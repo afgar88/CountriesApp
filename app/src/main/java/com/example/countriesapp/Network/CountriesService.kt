@@ -10,7 +10,7 @@ import retrofit2.http.GET
 interface CountriesService {
 
     @GET(COUNTRIES)
-    fun getAllCountries(): Response<Countries>
+    suspend fun getAllCountries(): Response<Countries>
 
     companion object {
         const val BASE_URL =

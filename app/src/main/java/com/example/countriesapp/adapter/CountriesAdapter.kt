@@ -26,12 +26,11 @@ class CountriesAdapter(
     }
 
     override fun onBindViewHolder(holder: CountriesViewAdapter, position: Int) {
-        val my_country = countriesList[position]
-        holder.bind(my_country)
+        val myCountry = countriesList[position]
+        holder.bind(myCountry)
     }
 
     override fun getItemCount(): Int = countriesList.size
-
 
 }
 

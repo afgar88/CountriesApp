@@ -9,13 +9,13 @@ data class CountriesItem(
     @SerializedName("code")
     val code: String,
     @SerializedName("currency")
-    val currency: Currency,
+    val currency: Currency?,
     @SerializedName("demonym")
     val demonym: String,
     @SerializedName("flag")
     val flag: String,
     @SerializedName("language")
-    val language: Language,
+    val language: Language?,
     @SerializedName("name")
     val name: String,
     @SerializedName("region")

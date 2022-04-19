@@ -49,10 +49,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-alpha04'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0-alpha04'
 
-    //okhttp
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
 
-    //okhttp loggin interceptor
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 

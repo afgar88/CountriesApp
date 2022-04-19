@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.countriesapp.R
-import com.example.countriesapp.model.Countries
 import com.example.countriesapp.model.CountriesItem
 
 class CountriesAdapter(

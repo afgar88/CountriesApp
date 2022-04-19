@@ -2,14 +2,11 @@ package com.example.countriesapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.countriesapp.adapter.CountriesAdapter
 import com.example.countriesapp.databinding.ActivityMainBinding
 import com.example.countriesapp.model.Countries
-import com.example.countriesapp.model.CountriesItem
 import com.example.countriesapp.utils.CountriesState
 import com.example.countriesapp.viewmodel.CountriesViewModel
 
@@ -42,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "loading...", Toast.LENGTH_LONG).show()
                 }
                 is CountriesState.SUCCESS<*> -> {
-                    var countries = it.countries as Countries
+                    val countries = it.countries as Countries
                     countriesAdapter.update(countries)
                 }
                 is CountriesState.ERROR -> {

@@ -4,16 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.countriesapp.Network.CountriesRepository
-import com.example.countriesapp.Network.CountriesRepositoryImp
-import com.example.countriesapp.model.CountriesItem
+import com.example.countriesapp.Network.CountriesService
 import com.example.countriesapp.utils.CountriesState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CountriesViewModel(
-    private val country:CountriesRepositoryImp,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
@@ -24,13 +21,12 @@ class CountriesViewModel(
     fun getAllCountries() {
         viewModelScope.launch(ioDispatcher) {
             try {
-                val response = country.getAllCountries()
+                var response = CountriesService.retrofitService.getAllCountries()
                 if (response.isSuccessful) {
                     response.body()?.let {
                         _allCountries.postValue(CountriesState.SUCCESS(it))
                     } ?: throw Exception("Response is null")
-
-                } else {
+                } else{
                     throw Exception("No successful response")
                 }
             } catch (e: Exception) {

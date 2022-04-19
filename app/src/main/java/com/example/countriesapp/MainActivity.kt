@@ -2,13 +2,13 @@ package com.example.countriesapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.example.countriesapp.Network.CountriesService
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.countriesapp.adapter.CountriesAdapter
 import com.example.countriesapp.databinding.ActivityMainBinding
 import com.example.countriesapp.model.Countries
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.countriesapp.utils.CountriesState
+import com.example.countriesapp.viewmodel.CountriesViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,24 +16,40 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    private val viewModel: CountriesViewModel = CountriesViewModel()
+
+    private val countriesAdapter by lazy {
+        CountriesAdapter()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        binding.idRecycler.apply {
 
-//        CountriesService.retrofitService.getAllCountries().enqueue(object : Callback<Countries>{
-//            override fun onResponse(call: Call<Countries>, response: Response<Countries>) {
-//
-//                if (response.isSuccessful){
-//                    response.body()?.let {
-//                        Log.d("Paises",it[0].name)
-//                    }
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<Countries>, t: Throwable) {
-//                Log.d("Error","Error")
-//            }
-//        })
+            layoutManager =
+                LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+            adapter = countriesAdapter
+        }
+
+        viewModel.getAllCountries()
+        viewModel.countries.observe(this) {
+            when (it) {
+                is CountriesState.LOADING -> {
+                    Toast.makeText(this, "loading...", Toast.LENGTH_LONG).show()
+                }
+                is CountriesState.SUCCESS<*> -> {
+                    val countries = it.countries as Countries
+                    countriesAdapter.update(countries)
+                }
+                is CountriesState.ERROR -> {
+                    Toast.makeText(
+                        this,
+                        it.error.localizedMessage,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
     }
 }

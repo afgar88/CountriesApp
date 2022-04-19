@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.countriesapp.R
-import com.example.countriesapp.model.Countries
 import com.example.countriesapp.model.CountriesItem
 
 class CountriesAdapter(
@@ -26,12 +25,11 @@ class CountriesAdapter(
     }
 
     override fun onBindViewHolder(holder: CountriesViewAdapter, position: Int) {
-        val my_country = countriesList[position]
-        holder.bind(my_country)
+        val myCountry = countriesList[position]
+        holder.bind(myCountry)
     }
 
     override fun getItemCount(): Int = countriesList.size
-
 
 }
 
